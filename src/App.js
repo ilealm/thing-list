@@ -16,12 +16,20 @@ class App extends React.Component {
         }
     }
 
+    thingCreateHandler(thing) {
+      alert(thing.name);
+      // const updatedSnacks = this.state.snacks;
+      // updatedSnacks.push({name:"???",type:"???",id:"???"})
+      // this.setState({
+      //     snacks : updatedSnacks
+      // })
+    }
 
     render(){      
       return <div>
         <Header counter="TBD" />
         <main>
-          <ThingList things={this.state.thingList} />
+          <ThingList things={this.state.thingList}  onThingCreate= {this.thingCreateHandler} />
         </main>
         {/* <Footer /> */}
         </div>
@@ -33,9 +41,48 @@ function ThingList(props){
       {/* <p>list {props.things.length}</p> */}
         <h3> Things in the List</h3>
         <ul>
-            { props.things.map( thing => <Thing item={thing} />) }
+            { props.things.map( thing => <Thing item={thing} key={thing.name} />) }
         </ul>
+        <ThingsForm onThingCreate={props.onThingCreate} />
     </>
+}
+
+class ThingsForm extends React.Component{
+    constructor(props) {
+        super(props)
+        this.state = {
+            name:'add',
+            value :'',
+        }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event){
+      const newName = event.target.value;
+      this.setState( {
+          name : newName
+      })
+    }
+
+    handleSubmit(event) {
+      event.preventDefault();
+      this.props.onThingCreate(this.state);
+    }
+
+    render(){
+      return (
+        <form onSubmit={this.handleSubmit }>
+            <h4> Please add a element to the Thing List</h4>
+            <label> Name: </label>
+            <input
+                    type="text" value={this.state.name} onChange={this.handleChange}>
+                    </input>
+        </form>
+      )
+    }
+
+
 }
 
 function Thing(props){
