@@ -20,7 +20,7 @@ class App extends React.Component {
     thingCreateHandler(thing) {
       // alert(thing.name);
       const updatedThings = this.state.thingList;      
-      updatedThings.push({name:thing.name, value:"???"})
+      updatedThings.push({name:thing.name, value:thing.value })
       this.setState({
         thingList : updatedThings
       })
@@ -52,7 +52,7 @@ class ThingsForm extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            name:'add',
+            name:'',
             value :'',
         }
         this.handleChange = this.handleChange.bind(this);
@@ -60,10 +60,20 @@ class ThingsForm extends React.Component{
     }
 
     handleChange(event){
-      const newName = event.target.value;
-      this.setState( {
-          name : newName
-      })
+      if (event.target.name === "thingName"){
+        const newName = event.target.value;
+        this.setState( {
+            name : newName
+        })        
+      }
+    
+      if (event.target.name === "thingValue"){
+        const newValue = event.target.value;
+        this.setState( {
+            value : newValue
+        })        
+      }
+    
     }
 
     handleSubmit(event) {
@@ -77,13 +87,14 @@ class ThingsForm extends React.Component{
         <form onSubmit={this.handleSubmit }>
             <h4> Please add a element to the Thing List</h4>
             <label> Name: </label>
-            <input
-                    type="text" value={this.state.name} id="name" onChange={this.handleChange}>
-                    </input>              
-            {/* <label> Value: </label>
-            <input
-                    type="text" value={this.state.value} onChange={this.handleChange}>
-                    </input>               */}
+            <input 
+              name="thingName" type="text" value={this.state.name}  onChange={this.handleChange}>  
+            </input>              
+            <label> Value: </label>
+            <input 
+              name="thingValue" type="text" value={this.state.value}  onChange={this.handleChange}>  
+            </input>  
+            <button>Add</button>
         </form>
       )
     }
