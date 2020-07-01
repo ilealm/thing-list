@@ -20,7 +20,7 @@ class App extends React.Component {
     thingCreateHandler(thing) {
       // alert(thing.name);
       const updatedThings = this.state.thingList;      
-      updatedThings.push({name:"???",value:"???"})
+      updatedThings.push({name:thing.name, value:"???"})
       this.setState({
         thingList : updatedThings
       })
@@ -28,11 +28,11 @@ class App extends React.Component {
 
     render(){      
       return <div>
-        <Header counter="TBD" />
+        <Header counter={this.state.thingList.length} />
         <main>
           <ThingList things={this.state.thingList}  onThingCreate= {this.thingCreateHandler} />
         </main>
-        {/* <Footer /> */}
+        <Footer />
         </div>
     }
 }
@@ -68,6 +68,7 @@ class ThingsForm extends React.Component{
 
     handleSubmit(event) {
       event.preventDefault();
+      // alert(event. .id)
       this.props.onThingCreate(this.state);
     }
 
@@ -77,8 +78,12 @@ class ThingsForm extends React.Component{
             <h4> Please add a element to the Thing List</h4>
             <label> Name: </label>
             <input
-                    type="text" value={this.state.name} onChange={this.handleChange}>
-                    </input>
+                    type="text" value={this.state.name} id="name" onChange={this.handleChange}>
+                    </input>              
+            {/* <label> Value: </label>
+            <input
+                    type="text" value={this.state.value} onChange={this.handleChange}>
+                    </input>               */}
         </form>
       )
     }
