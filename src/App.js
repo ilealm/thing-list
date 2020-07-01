@@ -14,15 +14,16 @@ class App extends React.Component {
             }
           ]
         }
+      this.thingCreateHandler = this.thingCreateHandler.bind(this);
     }
 
     thingCreateHandler(thing) {
-      alert(thing.name);
-      // const updatedSnacks = this.state.snacks;
-      // updatedSnacks.push({name:"???",type:"???",id:"???"})
-      // this.setState({
-      //     snacks : updatedSnacks
-      // })
+      // alert(thing.name);
+      const updatedThings = this.state.thingList;      
+      updatedThings.push({name:"???",value:"???"})
+      this.setState({
+        thingList : updatedThings
+      })
     }
 
     render(){      
